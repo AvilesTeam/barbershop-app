@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Reservar Cita</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding fondo-negro">
+  <h2 class="titulo-dorado">Selecciona un Barbero</h2>
+
+  <div class="barberos-grid">
+    <ion-button
+      *ngFor="let barbero of barberos"
+      (click)="seleccionarBarbero(barbero)"
+      [color]="barberoSeleccionado === barbero ? 'warning' : 'medium'"
+      shape="round"
+      expand="block"
+      class="btn-barbero"
+    >
+      {{ barbero.nombre }}
+    </ion-button>
+  </div>
+
+  <div class="contenedor-barbero-seleccionado" *ngIf="barberoSeleccionado">
+    <ion-card class="card-barbero animacion-fade">
+      <ion-card-header>
+        <ion-card-title>{{ barberoSeleccionado.nombre }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Selecciona fecha y hora para tu cita</p>
+
+        <h3 class="titulo-dorado">Fecha</h3>
+        <ion-datetime
+          presentation="date"
+          [(ngModel)]="fechaSeleccionada"
+          class="fecha-selector"
+        ></ion-datetime>
+
+        <h3 class="titulo-dorado">Hora</h3>
+        <ion-select
+          placeholder="Selecciona hora"
+          [(ngModel)]="horaSeleccionada"
+          interface="popover"
+          class="hora-selector"
+        >
+          <ion-select-option *ngFor="let hora of horasDisponibles" [value]="hora">
+            {{ hora }}
+          </ion-select-option>
+        </ion-select>
+
+        <h3 class="titulo-dorado">Servicio</h3>
+        <ion-select
+          placeholder="Selecciona un servicio"
+          [(ngModel)]="servicioSeleccionado"
+          interface="popover"
+          class="hora-selector"
+        >
+          <ion-select-option value="fade">Corte Fade</ion-select-option>
+          <ion-select-option value="taper">Taper Fade</ion-select-option>
+          <ion-select-option value="undercut">Undercut</ion-select-option>
+          <ion-select-option value="pompadour">Pompadour</ion-select-option>
+          <ion-select-option value="buzz">Buzz Cut</ion-select-option>
+          <ion-select-option value="crop">French Crop</ion-select-option>
+          <ion-select-option value="mullet">Mullet Moderno</ion-select-option>
+        </ion-select>
+
+        <ion-button
+          expand="block"
+          color="warning"
+          class="btn-confirmar"
+          (click)="confirmarReserva()"
+          *ngIf="horaSeleccionada"
+        >
+          Confirmar Reserva
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

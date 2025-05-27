@@ -1,0 +1,88 @@
+.login-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  background: #1e1e1e; // Color de fondo base
+
+  .left-panel {
+    flex: 1;
+    background: linear-gradient(135deg, #bfa046, #d4af37); // Dorado
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+
+    .logo {
+      width: 200px;
+      height: auto;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      text-align: center;
+    }
+  }
+
+  .right-panel {
+    flex: 1;
+    background: #121212; // Fondo oscuro
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+
+    .login-form {
+      width: 100%;
+      max-width: 400px;
+      color: #fff;
+
+      h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #d4af37;
+      }
+
+      ion-item {
+        --highlight-color-focused: #d4af37;
+        --border-color: #444;
+        color: #fff;
+        margin-bottom: 1rem;
+      }
+
+      ion-label,
+      ion-input {
+        color: #fff;
+      }
+
+      .error-message {
+        color: #ff4d4d;
+        text-align: center;
+        margin: 10px 0;
+      }
+
+      ion-button {
+        --background: #d4af37;
+        --color: #000;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Diseño responsive para móviles
+@media screen and (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+
+    .left-panel,
+    .right-panel {
+      flex: none;
+      width: 100%;
+      height: 50%;
+    }
+  }
+}
