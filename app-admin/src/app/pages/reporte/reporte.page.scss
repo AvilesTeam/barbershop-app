@@ -1,1 +1,75 @@
-// placeholder for reporte.page.scss
+ion-content {
+  --background: #000; // fondo negro
+  color: #fff;
+  padding: 16px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: gold;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-reserva {
+  background: #111;
+  border: 1px solid gold;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 10px rgba(255, 215, 0, 0.2);
+  transition: transform 0.2s ease-in-out;
+}
+
+.card-reserva:hover {
+  transform: scale(1.02);
+}
+
+.card-reserva h2 {
+  font-size: 18px;
+  color: gold;
+  margin: 0 0 8px 0;
+}
+
+.card-reserva p {
+  font-size: 16px;
+  margin: 4px 0;
+  color: #f0f0f0;
+}
+
+.logo-barberia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.logo-barberia img.logo {
+  max-width: 200px;
+  width: 50%;
+  height: auto;
+  filter: brightness(1.2) drop-shadow(0 0 8px gold);
+  opacity: 0.85;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
+  @media (max-width: 768px) {
+    max-width: 140px;
+    width: 60%;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 120px;
+    width: 70%;
+  }
+}
+
+.logo-barberia img.logo:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}

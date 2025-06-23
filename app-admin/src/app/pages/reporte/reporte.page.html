@@ -1,12 +1,35 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Reportes</ion-title>
+  <ion-toolbar color="dark">
+    <ion-title class="titulo">Reporte de Reservas</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="ion-padding">
-  <ion-list>
-    <ion-item *ngFor="let r of reportes">
-      {{ r }}
-    </ion-item>
-  </ion-list>
+
+<ion-content>
+
+  <div *ngIf="reservas.length > 0; else noDatos">
+    <div *ngFor="let r of reservas" class="card-reserva">
+      <h2>Barbero: {{ r.barbero }}</h2>
+      <p>📅 Fecha: {{ r.fecha }}</p>
+      <p>⏰ Hora: {{ r.hora }}</p>
+      <p>🕓 Registrado: {{ r.timestamp?.toDate() | date: 'short' }}</p>
+
+      <!-- Botones de acción -->
+      <ion-button expand="block" size="small" color="warning" (click)="editarReserva(r)">
+        ✏️ Editar
+      </ion-button>
+
+      <ion-button expand="block" size="small" color="danger" (click)="eliminarReserva(r.id)">
+        🗑️ Eliminar
+      </ion-button>
+    </div>
+  </div>
+
+  <ng-template #noDatos>
+    <ion-text color="medium">No hay reservas registradas aún.</ion-text>
+  </ng-template>
+
+  <div class="logo-barberia">
+    <img src="/assets/Barberia-logo.png" alt="Barbería" class="logo" />
+  </div>
+
 </ion-content>

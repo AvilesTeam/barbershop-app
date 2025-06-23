@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReservaService } from 'src/service/reserva.service';
 
 @Component({
   selector: 'app-reserva',
@@ -7,27 +8,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./reserva.page.scss'],
 })
 export class ReservaPage {
-  // Barberos de ejemplo
   barberos = [
-   { nombre: 'Carlos' },
-  { nombre: 'Luis' },
-  { nombre: 'Dante' },
-  { nombre: 'Pedro' }
+    { nombre: 'Carlos' },
+    { nombre: 'Luis' },
+    { nombre: 'Dante' },
+    { nombre: 'Pedro' }
   ];
-servicioSeleccionado: string = '';
-
+  servicioSeleccionado: string = '';
   barberoSeleccionado: any = null;
   fechaSeleccionada: string = '';
   horaSeleccionada: string = '';
+  horasDisponibles: string[] = ['09:00 AM', '10:00 AM', '11:00 AM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM'];
 
-  // Horarios de ejemplo
-  horasDisponibles: string[] = [
-    '09:00 AM', '10:00 AM', '11:00 AM',
-    '01:00 PM', '02:00 PM', '03:00 PM',
-    '04:00 PM', '05:00 PM'
-  ];
-
-  constructor(private router: Router) {}
+  constructor(private router: Router, private reservaService: ReservaService) {}
 
   seleccionarBarbero(barbero: any) {
     this.barberoSeleccionado = barbero;
@@ -35,20 +28,24 @@ servicioSeleccionado: string = '';
 
   confirmarReserva() {
     if (this.barberoSeleccionado && this.fechaSeleccionada && this.horaSeleccionada) {
-      const resumen = `
-✅ Reserva confirmada:
-Barbero: ${this.barberoSeleccionado.nombre}
-Fecha: ${this.fechaSeleccionada}
-Hora: ${this.horaSeleccionada}`;
+      const reserva = {
+        barbero: this.barberoSeleccionado.nombre,
+        fecha: this.fechaSeleccionada,
+        hora: this.horaSeleccionada,
+        timestamp: new Date()
+      };
 
-      alert(resumen);
+      this.reservaService.agregarReserva(reserva).then(() => {
+        alert(`✅ Reserva confirmada:\nBarbero: ${reserva.barbero}\nFecha: ${reserva.fecha}\nHora: ${reserva.hora}`);
+        // Reiniciar
+        this.barberoSeleccionado = null;
+        this.fechaSeleccionada = '';
+        this.horaSeleccionada = '';
+      }).catch((err) => {
+        console.error('Error al guardar reserva', err);
+        alert('❌ Error al guardar la reserva');
+      });
 
-      // Aquí puedes guardar en Firebase si quieres
-
-      // Reiniciar
-      this.barberoSeleccionado = null;
-      this.fechaSeleccionada = '';
-      this.horaSeleccionada = '';
     } else {
       alert('Por favor selecciona barbero, fecha y hora');
     }
